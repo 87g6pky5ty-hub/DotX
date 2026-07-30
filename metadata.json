@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Remix Remix REGEXOS Mobile Fantasy Console",
+  "description": "A free, offline PWA fantasy console for mobile web, providing local code execution and privacy with zero API requirements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

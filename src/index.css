@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+.crt-overlay {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 3px, 3px 100%;
+}
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.console-body {
+  background-color: var(--theme-body);
+  border-color: var(--theme-border);
+  border-style: var(--theme-border-style, solid);
+}
+
+.console-btn-run {
+  background-color: var(--theme-btn-run);
+  box-shadow: 0 4px 0 var(--theme-btn-run-shadow);
+  color: var(--theme-text-run);
+}
+.console-btn-run:hover {
+  background-color: var(--theme-btn-run-hover);
+}
+.console-btn-run:active {
+  box-shadow: none;
+}
+
+.console-btn-pause {
+  background-color: var(--theme-btn-pause);
+  box-shadow: 0 4px 0 var(--theme-btn-pause-shadow);
+  color: var(--theme-text-pause);
+}
+.console-btn-pause:hover {
+  background-color: var(--theme-btn-pause-hover);
+}
+.console-btn-pause:active {
+  box-shadow: none;
+}
+
+.console-btn-step {
+  background-color: var(--theme-btn-step);
+  box-shadow: 0 4px 0 var(--theme-btn-step-shadow);
+  color: var(--theme-text-step);
+}
+.console-btn-step:hover {
+  background-color: var(--theme-btn-step-hover);
+}
+.console-btn-step:active {
+  box-shadow: none;
+}
+
+.console-btn-reset {
+  background-color: var(--theme-btn-reset);
+  box-shadow: 0 4px 0 var(--theme-btn-reset-shadow);
+  color: var(--theme-text-reset);
+}
+.console-btn-reset:hover {
+  background-color: var(--theme-btn-reset-hover);
+}
+.console-btn-reset:active {
+  box-shadow: none;
+}
+
+.console-btn-dpad {
+  background-color: var(--theme-dpad);
+  box-shadow: 0 4px 0 var(--theme-dpad-shadow);
+}
+.console-btn-dpad:active {
+  background-color: var(--theme-dpad-active);
+  box-shadow: none;
+}
+
+.console-btn-a {
+  background-color: var(--theme-btn-a);
+  box-shadow: 0 6px 0 var(--theme-btn-a-shadow);
+}
+.console-btn-a:active {
+  background-color: var(--theme-btn-a-active);
+  box-shadow: none;
+}
+
+.console-btn-b {
+  background-color: var(--theme-btn-b);
+  box-shadow: 0 6px 0 var(--theme-btn-b-shadow);
+}
+.console-btn-b:active {
+  background-color: var(--theme-btn-b-active);
+  box-shadow: none;
+}
+
+.console-btn-x {
+  background-color: var(--theme-btn-x);
+  box-shadow: 0 6px 0 var(--theme-btn-x-shadow);
+}
+.console-btn-x:active {
+  background-color: var(--theme-btn-x-active);
+  box-shadow: none;
+}
+.console-btn-y {
+  background-color: var(--theme-btn-y);
+  box-shadow: 0 6px 0 var(--theme-btn-y-shadow);
+}
+.console-btn-y:active {
+  background-color: var(--theme-btn-y-active);
+  box-shadow: none;
+}
