@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DOTX Mobile</title>
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DOTX" />
+
+    <style>
+      :root{
+        --bg:#0f1221;
+        --card:#15172b;
+        --muted:#9aa0b4;
+        --accent:#7bd389;
+        --accent-2:#5bb0ff;
+        --radius:14px;
+        --max-width:980px;
+        --gap:16px;
+        --text:#e6eef8;
+      }
+
+      *{box-sizing:border-box}
+      html,body{height:100%;}
+      body{
+        margin:0;
+        font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
+        background:linear-gradient(180deg,var(--bg),#0b0c14 80%);
+        color:var(--text);
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .container{
+        width:100%;
+        max-width:var(--max-width);
+        padding:20px;
+        display:grid;
+        grid-template-columns:1fr;
+        gap:var(--gap);
+      }
+
+      header.app-header{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        background:transparent;
+      }
+
+      .brand{
+        display:flex;
+        gap:10px;
+        align-items:center;
+      }
+
+      .logo{
+        width:48px;height:48px;border-radius:12px;flex:0 0 48px;
+        background:linear-gradient(135deg,var(--accent),var(--accent-2));
+        display:flex;align-items:center;justify-content:center;font-weight:700;color:#071018;
+        box-shadow:0 6px 20px rgba(11,12,20,0.5);
+      }
+
+      h1{font-size:1rem;margin:0}
+      p.lead{margin:0;color:var(--muted);font-size:0.9rem}
+
+      main.card{
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+        border-radius:var(--radius);
+        padding:16px;
+        box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      }
+
+      .grid{
+        display:grid;gap:12px;
+      }
+
+      /* Responsive columns for tablet and up */
+      @media (min-width:720px){
+        .container{grid-template-columns:1fr 340px;align-items:start}
+        main.card{padding:20px}
+      }
+
+      .info-row{
+        display:flex;align-items:center;justify-content:space-between;gap:12px
+      }
+
+      .big-cta{
+        display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#071018;font-weight:600;border:none;cursor:pointer;font-size:0.95rem;
+      }
+
+      .secondary{
+        padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);font-size:0.92rem;cursor:pointer;
+      }
+
+      /* Example card items */
+      .feature{
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+        border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center
+      }
+      .feature .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.03)}
+      .feature h3{margin:0;font-size:1rem}
+      .feature p{margin:0;color:var(--muted);font-size:0.9rem}
+
+      footer.bottom-nav{
+        display:flex;gap:8px;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02);
+      }
+
+      /* Floating action for mobile */
+      .fab{
+        position:fixed;right:18px;bottom:18px;background:var(--accent);color:#071018;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 30px rgba(11,12,20,0.6);border:none;cursor:pointer;
+      }
+
+      /* Accessibility focus */
+      :focus{outline:2px solid rgba(123,211,137,0.25);outline-offset:3px}
+
+      /* Utility */
+      .muted{color:var(--muted)}
+      .row{display:flex;gap:12px;align-items:center}
+
+    </style>
+  </head>
+  <body>
+    <div class="container" role="application">
+      <header class="app-header" aria-label="DOTX header">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">DX</div>
+          <div>
+            <h1>DOTX</h1>
+            <p class="lead">Secure — fast — simple</p>
+          </div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+          <button class="secondary" aria-label="Open settings">Settings</button>
+          <button class="secondary" aria-label="Open help">Help</button>
+        </div>
+      </header>
+
+      <main class="card" role="main" aria-labelledby="main-title">
+        <div class="grid">
+          <section id="main-title" class="info-row">
+            <div>
+              <h2 style="margin:0;font-size:1.2rem">Welcome back</h2>
+              <p class="muted" style="margin-top:6px;font-size:0.95rem">Your DOTX workspace is ready.</p>
+            </div>
+            <div style="text-align:right">
+              <div class="muted" style="font-size:0.95rem">Status</div>
+              <div style="font-weight:700;color:var(--accent);">Online</div>
+            </div>
+          </section>
+
+          <section class="row" style="justify-content:space-between">
+            <button class="big-cta" id="primary-action">Get started</button>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <button class="secondary">Sync now</button>
+              <button class="secondary">Import data</button>
+            </div>
+          </section>
+
+          <section aria-label="Features" style="display:grid;grid-template-columns:1fr;gap:10px">
+            <article class="feature" role="article">
+              <div class="icon" aria-hidden="true">
+                <!-- simple svg -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 8h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h3>Fast setup</h3>
+                <p>One-tap onboarding, optimized for touch devices.</p>
+              </div>
+            </article>
+
+            <article class="feature">
+              <div class="icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <div>
+                <h3>Privacy-first</h3>
+                <p>Local-first defaults and minimal permissions.</p>
+              </div>
+            </article>
+
+            <article class="feature">
+              <div class="icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 3v18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <h3>Cross-device</h3>
+                <p>Continue workflows on tablet or desktop.</p>
+              </div>
+            </article>
+          </section>
+
+          <section style="margin-top:6px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div class="muted">Recent activity</div>
+                <div style="font-weight:700">No recent items</div>
+              </div>
+              <div class="muted" style="font-size:0.9rem">Last synced: —</div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Sidebar / secondary column on tablet+ -->
+      <aside class="card" aria-label="Sidebar" style="display:none;">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div>
+            <div class="muted">Profile</div>
+            <div style="font-weight:700">Guest user</div>
+          </div>
+          <div>
+            <div class="muted">Quick actions</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+              <button class="secondary">New project</button>
+              <button class="secondary">Scan QR</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <footer class="bottom-nav" style="grid-column:1/-1">
+        <div class="row">
+          <button class="secondary" aria-label="Home">Home</button>
+          <button class="secondary" aria-label="Search">Search</button>
+          <button class="secondary" aria-label="Notifications">Notifications</button>
+        </div>
+        <div class="muted">v1.0 • DOTX</div>
+      </footer>
+
+    </div>
+
+    <button class="fab" aria-label="Create">+</button>
+
+    <script>
+      // Basic responsive behavior: show sidebar on wider screens
+      function updateLayout(){
+        const aside = document.querySelector('aside');
+        if(!aside) return;
+        if(window.innerWidth >= 720) aside.style.display = 'block';
+        else aside.style.display = 'none';
+      }
+      addEventListener('resize', updateLayout);
+      addEventListener('orientationchange', updateLayout);
+      updateLayout();
+
+      // Simple keyboard accessibility
+      document.querySelectorAll('button').forEach(btn=>{
+        btn.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') btn.click(); });
+      });
+
+      // Primary CTA example
+      document.getElementById('primary-action').addEventListener('click', ()=>{
+        alert('Primary action triggered — replace with real flow.');
+      });
+
+      // Prevent zoom-on-focus on some mobile browsers
+      try{document.querySelector('meta[name=viewport]').setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1');}catch(e){}
+    </script>
+  </body>
+</html>
