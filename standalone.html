@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>DOTX Mobile</title>
+    <title>DOTX Mobile — Standalone</title>
     <meta name="theme-color" content="#1a1a2e" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
@@ -14,306 +14,110 @@
       content="black-translucent"
     />
     <meta name="apple-mobile-web-app-title" content="DOTX" />
+    <!-- small SVG icon as data URI for apple touch -->
     <link
       rel="apple-touch-icon"
-      href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgZmlsbD0iIzZkNGFmZiIvPjx0ZXh0IHg9Ij[...]
+      href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192'><rect width='100%' height='100%' fill='%236d4aff'/><text x='50%' y='55%' font-size='80' font-family='Arial' fill='white' text-anchor='middle' alignment-baseline='middle'>•</text></svg>"
     />
+
     <style>
-      * {
-        touch-action: manipulation;
-      }
-      body {
-        background-color: #1a1a2e;
-        margin: 0;
-      }
-
-      /* Mobile-first responsive editor improvements */
-      :root {
-        --vh: 1vh; /* updated by JS to account for mobile address bar */
-        --toolbar-height: 48px;
-        --touch-font-size: 16px; /* prevents iOS input zoom */
-      }
-
-      /* Ensure app fills available height reliably on mobile */
-      html, body {
-        height: 100%;
-        -webkit-text-size-adjust: 100%; /* prevents font zoom */
-        touch-action: manipulation;
-        -webkit-tap-highlight-color: transparent;
-        margin: 0;
-        background: #1a1a2e;
-        color: #e6eef8;
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      }
-
-      /* Main editor container, adapt class/ID to your app root (e.g., #app, .root) */
-      #app, .app-root, .editor-root {
-        height: calc(var(--vh, 1vh) * 100);
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* Toolbar */
-      .editor-toolbar {
-        height: var(--toolbar-height);
-        min-height: var(--toolbar-height);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 8px;
-        background: linear-gradient(180deg, rgba(26,26,46,0.9), rgba(26,26,46,0.8));
-        z-index: 10;
-      }
-
-      /* Split panes: stacks on mobile, side-by-side on larger screens */
-      .editor-split {
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 auto;
-        min-height: 0; /* allow children to overflow correctly */
-      }
-
-      /* Each pane (editor / preview) */
-      .editor-pane {
-        box-sizing: border-box;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch; /* momentum scroll */
-        flex: 1 1 auto;
-        padding: 12px;
-      }
-
-      /* On larger viewports use side-by-side layout */
-      @media (min-width: 700px) {
-        .editor-split { flex-direction: row; gap: 8px; }
-        .editor-pane { padding: 16px; }
-      }
-
-      /* Make interactive elements large enough for touch */
-      button, .btn, .toolbar-button {
-        min-height: 40px;
-        min-width: 40px;
-        padding: 8px 10px;
-        font-size: 14px;
-        border-radius: 8px;
-        touch-action: manipulation;
-      }
-
-      /* Editor content improvements (Monaco/CodeMirror common targets) */
-      .monaco-editor, .monaco-editor .overflow-guard, .monaco-editor .view-lines {
-        touch-action: pan-y;
-        -webkit-user-select: text;
-      }
-      .CodeMirror, .cm-editor {
-        touch-action: pan-y;
-        -webkit-user-select: text;
-      }
-
-      /* Fullscreen editor mode */
-      .editor-fullscreen {
-        position: fixed !important;
-        inset: 0;
-        z-index: 99999;
-        background: #0f1724;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* When keyboard is open, reduce visual shifts */
-      .keyboard-open .editor-toolbar {
-        /* keep toolbar visible and minimal */
-        transform: translateY(0);
-      }
-
-      /* Hide sidebars on small screens by default (toggleable via JS) */
-      .sidebar, .left-panel, .right-panel {
-        transition: transform 180ms ease, opacity 120ms ease;
-      }
-      @media (max-width: 699px) {
-        .sidebar, .left-panel, .right-panel { display: none !important; }
-      }
-
-      /* Inputs / textareas should be big enough */
-      input[type="text"], textarea {
-        font-size: var(--touch-font-size);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        caret-color: #90cdf4;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
-      }
-
-      /* small helper for collapsed toggle */
-      .mobile-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* ensure code blocks / pre tags wrap on mobile */
-      pre, code, .code-output {
-        white-space: pre-wrap;
-        word-break: break-word;
-        font-size: 14px;
-      }
+      * { box-sizing: border-box; touch-action: manipulation; }
+      :root { --vh: 1vh; --toolbar-height: 48px; --touch-font-size: 16px; }
+      html,body{height:100%;margin:0;background:#1a1a2e;color:#e6eef8;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial; -webkit-text-size-adjust:100%;}
+      #app{height:calc(var(--vh,1vh)*100);display:flex;flex-direction:column}
+      .editor-toolbar{height:var(--toolbar-height);min-height:var(--toolbar-height);display:flex;align-items:center;gap:8px;padding:6px 8px;background:linear-gradient(180deg, rgba(26,26,46,0.95), rgba(26,26,46,0.88));z-index:10}
+      .toolbar-button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:8px 10px;border-radius:8px;min-height:40px;min-width:40px}
+      .editor-split{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
+      .editor-pane{overflow:auto;flex:1 1 auto;padding:12px}
+      .editor-pane textarea{width:100%;height:100%;min-height:220px;background:#0f1724;color:#e6eef8;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:8px;font-size:var(--touch-font-size);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,'Courier New',monospace;resize:none}
+      .preview{background:#071026;border-radius:8px;padding:12px;color:#dbeafe;overflow:auto}
+      pre,code{white-space:pre-wrap;word-break:break-word}
+      .split-row{display:flex;gap:8px}
+      @media (min-width:700px){ .editor-split{flex-direction:row} .editor-pane{padding:16px} .editor-pane{flex:1 1 50%} }
+      .editor-fullscreen{position:fixed;inset:0;z-index:99999;background:#071026;display:flex;flex-direction:column}
+      .hidden{display:none}
+      .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     </style>
+  </head>
+  <body>
+    <div id="app" class="app-root">
+      <div class="editor-toolbar" role="toolbar" aria-label="Editor toolbar">
+        <button class="toolbar-button" id="btn-full">Fullscreen</button>
+        <button class="toolbar-button" id="btn-preview-toggle">Hide Preview</button>
+        <div style="flex:1"></div>
+        <button class="toolbar-button" id="btn-clear">Clear</button>
+      </div>
+
+      <div class="editor-split" id="editor-split">
+        <div class="editor-pane" style="min-width:260px">
+          <label for="editor-text" class="sr-only">Editor</label>
+          <textarea id="editor-text" placeholder="Type Markdown or text here..."></textarea>
+        </div>
+        <div class="editor-pane" id="preview-pane">
+          <div class="preview" id="preview">Preview will appear here</div>
+        </div>
+      </div>
+    </div>
 
     <script>
-    (function(){
-      // Update --vh for mobile address bar / safe area handling
-      function updateVh() {
-        document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
-      }
-      updateVh();
-      window.addEventListener('resize', updateVh);
-      window.addEventListener('orientationchange', function(){ setTimeout(updateVh, 300); });
+      (function(){
+        // Mobile safe-area height handling
+        function updateVh(){ document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px'); }
+        updateVh(); window.addEventListener('resize', updateVh); window.addEventListener('orientationchange', function(){ setTimeout(updateVh,300); });
 
-      // Add class when an input/textarea/textarea-based editor is focused
-      function onFocusIn(e) {
-        var tg = e.target;
-        if (!tg) return;
-        try {
-          if (tg.tagName === 'INPUT' || tg.tagName === 'TEXTAREA' || tg.isContentEditable || (tg.classList && tg.classList.contains('monaco-editor')) || (tg.closest && tg.closest('.monaco-editor'))) {
-            document.documentElement.classList.add('keyboard-open');
-            setTimeout(function(){ try{ tg.scrollIntoView({behavior:'smooth', block:'center', inline:'nearest'}); } catch(err){} }, 50);
-          }
-        } catch(err){}
-      }
-      function onFocusOut() { document.documentElement.classList.remove('keyboard-open'); }
-      document.addEventListener('focusin', onFocusIn);
-      document.addEventListener('focusout', onFocusOut);
+        // Keyboard open class
+        function onFocusIn(e){ var tg = e.target; if(!tg) return; try{ if(tg.tagName==='INPUT' || tg.tagName==='TEXTAREA' || tg.isContentEditable){ document.documentElement.classList.add('keyboard-open'); setTimeout(function(){ try{ tg.scrollIntoView({behavior:'smooth', block:'center', inline:'nearest'}); }catch(err){} },50); } }catch(err){} }
+        function onFocusOut(){ document.documentElement.classList.remove('keyboard-open'); }
+        document.addEventListener('focusin', onFocusIn); document.addEventListener('focusout', onFocusOut);
 
-      // Add full-screen toggle helper
-      function toggleFullscreen(rootSelector) {
-        var root = document.querySelector(rootSelector || '#app') || document.body;
-        if (!root) return;
-        root.classList.toggle('editor-fullscreen');
-        updateVh();
-      }
-      window.toggleEditorFullscreen = toggleFullscreen;
+        // Simple editor-preview bindings
+        var textarea = document.getElementById('editor-text');
+        var preview = document.getElementById('preview');
+        var btnFull = document.getElementById('btn-full');
+        var btnPreviewToggle = document.getElementById('btn-preview-toggle');
+        var btnClear = document.getElementById('btn-clear');
+        var previewPane = document.getElementById('preview-pane');
+        var appRoot = document.getElementById('app');
 
-      // Simple mobile sidebar toggle helper
-      function toggleSidebar(selector) {
-        var el = document.querySelector(selector);
-        if (!el) return;
-        var hidden = el.style.display === 'none' || window.getComputedStyle(el).display === 'none';
-        el.style.display = hidden ? '' : 'none';
-      }
-      window.toggleSidebar = toggleSidebar;
-
-      // Editor-specific mobile config (Monaco + CodeMirror)
-      function tuneEditorsForMobile() {
-        try {
-          if (window.monaco && window.monaco.editor) {
-            if (window.monacoEditors && Array.isArray(window.monacoEditors)) {
-              window.monacoEditors.forEach(function(ed){
-                try{
-                  ed.updateOptions && ed.updateOptions({ fontSize: 16, lineNumbers: 'off', minimap: { enabled: false }, wordWrap: 'on', scrollBeyondLastLine: false, smoothScrolling: true, mouseWheelScrollSensitivity: 1, disableLayerHinting: true, scrollbar: { vertical: 'visible', horizontal: 'auto' } });
-                  var wrapper = ed.getDomNode && ed.getDomNode(); if (wrapper) wrapper.style.touchAction = 'pan-y';
-                }catch(e){}
-              });
-            } else {
-              var nodes = document.querySelectorAll('.monaco-editor');
-              nodes.forEach(function(node){ node.style.touchAction = 'pan-y'; });
-            }
-          }
-        } catch(e){}
-
-        try {
-          if (window.CodeMirror) {
-            if (window.codeMirrorInstances && Array.isArray(window.codeMirrorInstances)) {
-              window.codeMirrorInstances.forEach(function(cm){
-                try{ cm.setOption && cm.setOption('lineWrapping', true); cm.setOption && cm.setOption('viewportMargin', Infinity); cm.getWrapperElement && (cm.getWrapperElement().style.fontSize = '16px'); }catch(e){}
-              });
-            } else {
-              var cmEls = document.querySelectorAll('.CodeMirror, .cm-editor');
-              cmEls.forEach(function(el){ el.style.touchAction = 'pan-y'; el.style.fontSize = '16px'; });
-            }
-          }
-        } catch(e){}
-      }
-
-      // Run after a short delay and on DOMContentLoaded
-      setTimeout(tuneEditorsForMobile, 800);
-      document.addEventListener('DOMContentLoaded', tuneEditorsForMobile);
-    })();
-    </script>
-
-    <script type="module" crossorigin>
-      (function polyfill() {
-        const relList = document.createElement("link").relList;
-        if (relList && relList.supports && relList.supports("modulepreload")) {
-          return;
+        function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+        function renderPreview(){ var v = textarea.value; if(!v) { preview.innerText = 'Preview will appear here'; return; }
+          var out = escapeHtml(v)
+            .replace(/^### (.*$)/gim,'<h3>$1</h3>')
+            .replace(/^## (.*$)/gim,'<h2>$1</h2>')
+            .replace(/^# (.*$)/gim,'<h1>$1</h1>')
+            .replace(/\*\*(.*?)\*\*/gim,'<strong>$1</strong>')
+            .replace(/\*(.*?)\*/gim,'<em>$1</em>')
+            .replace(/`([^`]+)`/gim,'<code>$1</code>')
+            .replace(/\n\n+/gim,'</p><p>')
+            .replace(/\n/gim,'<br/>');
+          // wrap paragraphs
+          if(!out.startsWith('<p>') && out.indexOf('<h')!==0){ out = '<p>' + out + '</p>'; }
+          preview.innerHTML = out;
         }
-        for (const link of document.querySelectorAll(
-          'link[rel="modulepreload"]',
-        )) {
-          processPreload(link);
-        }
-        new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            if (mutation.type !== "childList") {
-              continue;
-            }
-            for (const node of mutation.addedNodes) {
-              if (node.tagName === "LINK" && node.rel === "modulepreload")
-                processPreload(node);
-            }
-          }
-        }).observe(document, { childList: true, subtree: true });
-        function getFetchOpts(link) {
-          const fetchOpts = {};
-          if (link.integrity) fetchOpts.integrity = link.integrity;
-          if (link.referrerPolicy)
-            fetchOpts.referrerPolicy = link.referrerPolicy;
-          if (link.crossOrigin === "use-credentials")
-            fetchOpts.credentials = "include";
-          else if (link.crossOrigin === "anonymous")
-            fetchOpts.credentials = "omit";
-          else fetchOpts.credentials = "same-origin";
-          return fetchOpts;
-        }
-        function processPreload(link) {
-          if (link.ep) return;
-          link.ep = true;
-          const fetchOpts = getFetchOpts(link);
-          fetch(link.href, fetchOpts);
-        }
+
+        textarea.addEventListener('input', renderPreview);
+        textarea.addEventListener('change', renderPreview);
+        renderPreview();
+
+        btnFull.addEventListener('click', function(){ appRoot.classList.toggle('editor-fullscreen'); updateVh(); btnFull.innerText = appRoot.classList.contains('editor-fullscreen') ? 'Exit Fullscreen' : 'Fullscreen'; });
+        btnPreviewToggle.addEventListener('click', function(){ previewPane.classList.toggle('hidden'); btnPreviewToggle.innerText = previewPane.classList.contains('hidden') ? 'Show Preview' : 'Hide Preview'; });
+        btnClear.addEventListener('click', function(){ textarea.value=''; renderPreview(); textarea.focus(); });
+
+        // Small accessibility helper: keyboard shortcuts
+        document.addEventListener('keydown', function(e){ if((e.ctrlKey || e.metaKey) && e.key === 'b'){ e.preventDefault(); wrapSelection('**'); } if((e.ctrlKey || e.metaKey) && e.key === 'i'){ e.preventDefault(); wrapSelection('*'); } });
+        function wrapSelection(wrapper){ var s = textarea.selectionStart, e = textarea.selectionEnd, val = textarea.value; var before = val.slice(0,s), mid = val.slice(s,e), after = val.slice(e); textarea.value = before + wrapper + mid + wrapper + after; textarea.selectionStart = s + wrapper.length; textarea.selectionEnd = e + wrapper.length; renderPreview(); textarea.focus(); }
+
+        // tune fake "editor" for mobile (font-size to avoid zoom)
+        textarea.style.fontSize = getComputedStyle(document.documentElement).getPropertyValue('--touch-font-size') || '16px';
+
+        // run editor tuning after DOM ready
+        setTimeout(function(){ textarea.scrollTop = 0; }, 300);
+
+        // expose helpers for manual testing
+        window.toggleEditorFullscreen = function(){ btnFull.click(); };
+        window.toggleSidebar = function(sel){ var el = document.querySelector(sel); if(!el) return; var hidden = el.style.display === 'none' || window.getComputedStyle(el).display === 'none'; el.style.display = hidden ? '' : 'none'; };
+
       })();
-      function getDefaultExportFromCjs(x) {
-        return x &&
-          x.__esModule &&
-          Object.prototype.hasOwnProperty.call(x, "default")
-          ? x["default"]
-          : x;
-      }
-      var jsxDevRuntime = { exports: {} };
-      var reactJsxDevRuntime_development = {};
-      var react = { exports: {} };
-      var react_development = { exports: {} };
-      react_development.exports;
-      var hasRequiredReact_development;
-      function requireReact_development() {
-        if (hasRequiredReact_development) return react_development.exports;
-        hasRequiredReact_development = 1;
-        (function (module, exports) {
-          /**
-           * @license React
-           * react.development.js
-           *
-           * Copyright (c) Meta Platforms, Inc. and affiliates.
-           *
-           * This source code is licensed under the MIT license found in the
-           * LICENSE file in the root directory of this source tree.
-           */
-          (function () {
-            function defineDeprecationWarning(methodName, info) {
-              Object.defineProperty(Component.prototype, methodName, {
-                get: function () {
-                  console.warn(
-                    "%s(...) is deprecated in plain JavaScript React classes. %s",
-                    info[0],
-                    info[1],
-                  );
-                },
-              });
-            }
-            // ... rest of original file unchanged ...
+    </script>
+  </body>
+</html>
